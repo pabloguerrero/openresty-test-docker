@@ -1,6 +1,6 @@
-FROM talentappstore/openresty:1.11.2.1
+FROM talentappstore/openresty:1.11.2.2
 
-RUN apt-get install -y vim libexpat1-dev && \
+RUN apt-get update && apt-get install -y vim libexpat1-dev && \
     cpan -T -i Test::Nginx \
         YAML::Tiny \
         XML::Parser \
@@ -10,7 +10,8 @@ RUN apt-get install -y vim libexpat1-dev && \
         IPC::Run \
         TAP::Formatter:JUnit && \
         mkdir output && \
-        mkdir t
+    mkdir t && \
+    rm -rf /var/lib/apt/lists/*
 
 ENV PATH $PATH:/usr/local/openresty/nginx/sbin
 
